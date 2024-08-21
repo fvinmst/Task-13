@@ -1,18 +1,15 @@
 <?php
-// Koneksi ke database
 $host = "localhost";
-$username = "root"; // Ganti dengan username database
-$password = ""; // Ganti dengan password database
+$username = "root"; 
+$password = ""; 
 $dbname = "mydatabase";
 
 $conn = new mysqli($host, $username, $password, $dbname);
 
-// Periksa koneksi
 if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
 
-// Menangani pencarian berdasarkan judul
 $searchKeyword = "";
 if (isset($_GET['search'])) {
     $searchKeyword = $_GET['search'];
@@ -35,7 +32,7 @@ $result = $conn->query($sql);
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px; /* Memberikan jarak antara tabel dan form pencarian */
+            margin-top: 20px;
         }
         th, td {
             border: 1px solid black;
@@ -43,7 +40,7 @@ $result = $conn->query($sql);
             text-align: left;
         }
         form {
-            margin-bottom: 20px; /* Menambahkan jarak bawah pada form pencarian */
+            margin-bottom: 20px; 
         }
     </style>
 </head>
@@ -66,20 +63,18 @@ $result = $conn->query($sql);
     </thead>
     <tbody>
         <?php
-        // Cek apakah ada data yang ditemukan
         if ($result->num_rows > 0) {
-            $no = 1; // Inisialisasi nomor urut
-            // Menampilkan data per baris
+            $no = 1;
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>" . $no++ . "</td>"; // Menampilkan nomor urut
+                echo "<td>" . $no++ . "</td>";
                 echo "<td>" . htmlspecialchars($row['title']) . "</td>";
                 echo "<td><a href='" . htmlspecialchars($row['url']) . "' target='_blank'>" . htmlspecialchars($row['url']) . "</a></td>";
                 echo "<td>" . htmlspecialchars($row['description']) . "</td>";
                 echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='4'>No data found</td></tr>"; // Perbaiki colspan menjadi 4 karena ada 4 kolom
+            echo "<tr><td colspan='4'>No data found</td></tr>"; 
         }
         ?>
     </tbody>
